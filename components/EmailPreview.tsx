@@ -1,4 +1,3 @@
-import { AppContext } from "@/context/AppContext";
 import {
   ChevronDown,
   ChevronLeft,
@@ -18,6 +17,7 @@ import remarkToc from "remark-toc";
 import { Preview } from "@react-email/components";
 import rehypeRaw from "rehype-raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { AppContext } from "@/context/AppContext";
 
 function EmailPreview() {
   const { emailSubject, emailContent } = useContext(AppContext);
@@ -75,22 +75,6 @@ function EmailPreview() {
         <ReactMarkdown
           className={"prose reactMarkDown"}
           children={emailContent}
-          components={{
-            code({ node, inline, className, children, ...props }) {
-              const match = /language-(\w+)/.exec(className || "");
-              return !inline && match ? (
-                <SyntaxHighlighter
-                  children={String(children).replace(/\n$/, "")}
-                  language={match[1]}
-                  {...props}
-                />
-              ) : (
-                <code className={className} {...props}>
-                  {children}
-                </code>
-              );
-            },
-          }}
         />
       </div>
     </div>

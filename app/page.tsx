@@ -7,7 +7,7 @@ import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { WavyBackground } from "@/components/wavy_background";
+
 import { SparklesCore } from "@/components/sparkles";
 import { Button } from "@/components/moving-border";
 

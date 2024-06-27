@@ -16,7 +16,7 @@ import { PlusCircleIcon, Sparkles } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export function AddAudience({}: {}) {
+export function AddAudience() {
   const [audienceName, setaudienceName] = useState("");
   const { user } = useUser();
   const createAudience = async () => {

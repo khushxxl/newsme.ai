@@ -7,9 +7,9 @@ import { AIPromptDialog } from "./AIPromptDialog";
 import { useAuth } from "@clerk/nextjs";
 
 function EmailEditor() {
-  const textareaRef = useRef(null);
+  const textareaRef = useRef<any>(null);
 
-  const handleInput = (event) => {
+  const handleInput = (event: any) => {
     // Reset the height to auto to shrink it if needed
     textareaRef.current.style.height = "auto";
     // Set the height to the scrollHeight of the textarea
