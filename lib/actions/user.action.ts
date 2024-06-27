@@ -16,5 +16,5 @@ export const createUser = async (user: any) => {
 };
 
 export const createFirebaseUser = async (user: any, clerkId: any) => {
-  await setDoc(doc(db, "cities", clerkId), user);
+  await setDoc(doc(db, "users", clerkId), user);
 };
