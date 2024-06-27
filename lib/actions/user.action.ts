@@ -2,6 +2,8 @@
 
 import { connectDatabase } from "@/mongodb";
 import User from "../models/User";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/firebase";
 
 export const createUser = async (user: any) => {
   try {
@@ -11,4 +13,8 @@ export const createUser = async (user: any) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const createFirebaseUser = async (user: any, clerkId: any) => {
+  await setDoc(doc(db, "cities", clerkId), user);
 };

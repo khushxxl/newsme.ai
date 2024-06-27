@@ -1,7 +1,7 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent, clerkClient } from "@clerk/nextjs/server";
-import { createUser } from "@/lib/actions/user.action";
+import { createFirebaseUser, createUser } from "@/lib/actions/user.action";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -65,15 +65,15 @@ export async function POST(req: Request) {
       clerkId: id,
     };
 
-    const newUser = await createUser(user);
+    const newUser = await createFirebaseUser(user, id);
 
-    if (newUser) {
-      await clerkClient.users.updateUserMetadata(id, {
-        publicMetadata: {
-          userId: newUser._id,
-        },
-      });
-    }
+    // if (newUser) {
+    //   await clerkClient.users.updateUserMetadata(id, {
+    //     publicMetadata: {
+    //       userId: newUser._id,
+    //     },
+    //   });
+    // }
 
     return NextResponse.json({ message: "New User Created", user: newUser });
   }

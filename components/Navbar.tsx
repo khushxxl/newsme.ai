@@ -1,12 +1,25 @@
 "use client";
-import { auth, signIn } from "@/app/auth";
-import { SignInButton, SignUp, UserButton, useAuth } from "@clerk/clerk-react";
+import { auth } from "@/firebase";
+import { SignInButton, UserButton, useAuth } from "@clerk/nextjs";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { PenSquare, User, Mail, Users } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 function Navbar() {
+  const provider = new GoogleAuthProvider();
+  const router = useRouter();
+
+  // const handleSignUp = async () => {
+  //   signInWithPopup(auth, provider).then((result) => {
+  //     console.log(user);
+  //     router.push("/email");
+  //   });
+  // };
+
   const { isSignedIn } = useAuth();
+
   const LinkComponent = ({
     isActive,
     title,
@@ -28,6 +41,9 @@ function Navbar() {
     );
   };
 
+  // const user = auth?.currentUser;
+  // console.log(user?.displayName);
+
   return (
     <div className="flex items-center  justify-between bg-black w-full p-5 border-b-[1px] border-gray-600">
       <div className="flex ">
@@ -41,6 +57,21 @@ function Navbar() {
       </div>
 
       {isSignedIn ? <UserButton /> : <SignInButton />}
+      {/* {auth.currentUser && auth.currentUser?.photoURL ? (
+        // user.displayName
+        <img
+          className="h-[30px] w-[30px] rounded-full cursor-pointer"
+          src={auth?.currentUser?.photoURL}
+          alt=""
+        />
+      ) : (
+        <div
+          onClick={handleSignUp}
+          className={`flex space-x-3 cursor-pointer items-center text-gray-300  w-fit  rounded-lg`}
+        >
+          <h1 className="text-sm">{"Sign up"}</h1>
+        </div>
+      )} */}
     </div>
   );
 }
