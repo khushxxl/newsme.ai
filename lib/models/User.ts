@@ -4,6 +4,14 @@ const userSchema = new Schema(
   {
     name: String,
     email: String,
+    profileImg: {
+      required: false,
+      type: String,
+    },
+    clerkId: {
+      type: String,
+      unique: true,
+    },
   },
   {
     timestamps: true,
