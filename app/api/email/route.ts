@@ -5,10 +5,10 @@ import { Resend } from "resend";
 const resend = new Resend("re_Nu7RJ4SJ_Abo8LVTSnSx6kNRKUncMcvpZ");
 
 export async function POST(request: Request) {
-  const { emailSubject, emailContent } = await request.json();
+  const { emailSubject, emailContent, recievers } = await request.json();
   await resend.emails.send({
     from: "Khushaal <khushaal@khushcodezz.net>",
-    to: "khushaal.choithramani@gmail.com",
+    to: recievers,
     subject: emailSubject,
     react: EmailTemplate({ content: emailContent }),
   });

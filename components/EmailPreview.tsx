@@ -18,9 +18,12 @@ import { Preview } from "@react-email/components";
 import rehypeRaw from "rehype-raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { AppContext } from "@/context/AppContext";
+import { useUser } from "@clerk/nextjs";
 
 function EmailPreview() {
   const { emailSubject, emailContent } = useContext(AppContext);
+
+  const { user } = useUser();
 
   return (
     <div className="border-[10px]  w-[280px] h-[550px] mt-10 border-gray-700 rounded-3xl">
@@ -52,13 +55,13 @@ function EmailPreview() {
             <img
               height={30}
               width={30}
-              src="https://pbs.twimg.com/profile_images/1743712842233307136/e8uK94Yf_400x400.jpg"
+              src={user?.imageUrl}
               alt=""
               className="rounded-full"
             />
           </div>
           <div className="ml-2">
-            <p className="text-xs">Khushaal</p>
+            <p className="text-xs">{user?.fullName}</p>
             <p className="text-xs flex text-gray-500 items-center">
               to me <ChevronDown size={15} className="ml-[1px]" />
             </p>
@@ -73,7 +76,7 @@ function EmailPreview() {
       </div>
       <div className="p-2 mt-5 w-[250px] text-white h-[400px] overflow-y-auto">
         <ReactMarkdown
-          className={"prose reactMarkDown"}
+          className="prose reactMarkDown lg:prose-xl"
           children={emailContent}
         />
       </div>

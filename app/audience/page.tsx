@@ -60,17 +60,19 @@ function Audience() {
   }, [audienceCollection]);
 
   const [audienceSelected, setaudienceSelected] = useState<any>();
-  console.log(audienceSelected);
 
   return (
     <div className="flex pt-10 flex-col max-w-6xl mx-auto justify-center">
       <div className="flex items-center space-x-3">
-        <AddAudienceMember
-          audRefId={audienceSelected?.id}
-          getUserAudience={getUserAudience}
-        />
+        {audienceSelected && (
+          <AddAudienceMember
+            audRefId={audienceSelected?.id}
+            getUserAudience={getUserAudience}
+          />
+        )}
         {/* {audienceSelected?.id} */}
         <AudienceSelector
+          showCreateAudButton={true}
           getUserAudience={getUserAudience}
           audienceSelected={audienceSelected}
           setaudienceSelected={setaudienceSelected}

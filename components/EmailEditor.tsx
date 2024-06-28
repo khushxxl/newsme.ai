@@ -1,13 +1,47 @@
 "use client";
 import { AppContext } from "@/context/AppContext";
 import { SendIcon, Sparkles } from "lucide-react";
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { AIPromptDialog } from "./AIPromptDialog";
-import { useAuth } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
+import { AudienceSelector } from "./AudienceSelector";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "@/firebase";
 
 function EmailEditor() {
   const textareaRef = useRef<any>(null);
+
+  const { userId, isSignedIn } = useAuth();
+
+  const [audienceCollection, setaudienceCollection] = useState<any>([]);
+
+  const getUserAudience = async () => {
+    const q = query(
+      collection(db, "audiences"),
+      where("audienceLeaderId", "==", userId)
+    );
+
+    const audience: any[] = [];
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // console.log(doc.id, " => ", doc.data());
+      audience.push({ id: doc.id, ...doc.data() });
+    });
+    setaudienceCollection(audience);
+    console.log("Audience", audienceCollection);
+  };
+
+  useEffect(() => {
+    getUserAudience();
+  }, [userId]);
+
+  useEffect(() => {
+    console.log("audienceCollection has been updated:", audienceCollection);
+  }, [audienceCollection]);
+
+  const [audienceSelected, setaudienceSelected] = useState<any>();
 
   const handleInput = (event: any) => {
     // Reset the height to auto to shrink it if needed
@@ -18,16 +52,23 @@ function EmailEditor() {
 
   const [aiPrompt, setaiPrompt] = useState("");
 
+  const { user } = useUser();
+
   const { emailSubject, setemailSubject, emailContent, setemailContent } =
     useContext(AppContext);
 
   const sendEmail = async () => {
-    if (emailSubject && emailSubject) {
+    if (emailSubject && emailSubject && audienceSelected) {
+      const recievers = audienceSelected?.members?.map(
+        (member: any) => member.memberEmail
+      );
+
       await fetch("/api/email", {
         method: "POST",
         body: JSON.stringify({
           emailSubject,
           emailContent,
+          recievers,
         }),
       }).then(() => {
         setemailSubject("");
@@ -61,7 +102,7 @@ function EmailEditor() {
           <img
             height={50}
             width={50}
-            src="https://pbs.twimg.com/profile_images/1743712842233307136/e8uK94Yf_400x400.jpg"
+            src={user?.imageUrl}
             alt=""
             className="rounded-full"
           />
@@ -71,7 +112,7 @@ function EmailEditor() {
           <div className="bg-[#282936] p-3 border-gray-500 max-w-md w-full border-[1px] rounded-xl">
             <div className="flex items-center">
               <p className="text-gray-400">from:</p>
-              <p className="ml-2">khushaal.choithramani@gmail.com</p>
+              <p className="ml-2">{user?.primaryEmailAddress?.emailAddress}</p>
             </div>
           </div>
           <div className="bg-[#282936] p-3 mt-2 border-gray-500 max-w-lg border-[1px] rounded-xl">
@@ -84,6 +125,15 @@ function EmailEditor() {
                 className="ml-2 bg-transparent w-full focus:outline-none"
               />
             </div>
+          </div>
+          <div className="mt-3">
+            <AudienceSelector
+              showCreateAudButton={false}
+              audienceCollection={audienceCollection}
+              audienceSelected={audienceSelected}
+              setaudienceSelected={setaudienceSelected}
+              getUserAudience={getUserAudience}
+            />
           </div>
         </div>
       </div>

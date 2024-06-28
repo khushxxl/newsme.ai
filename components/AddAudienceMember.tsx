@@ -66,11 +66,9 @@ export function AddAudienceMember({
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add a Member</DialogTitle>
-          <DialogDescription>Name your audience</DialogDescription>
         </DialogHeader>
         <div className="">
           <div className="mt-4">
-            <h1>Adding a member to {audRefId}</h1>
             <Label htmlFor="topic" className="text-right">
               Enter Member Name
             </Label>

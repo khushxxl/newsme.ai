@@ -96,7 +96,7 @@ export default function DataTable<TData, TValue>({
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                You have no files
+                You have no members
               </TableCell>
             </TableRow>
           )}

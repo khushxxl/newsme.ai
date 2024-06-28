@@ -13,11 +13,13 @@ export const AudienceSelector = ({
   audienceSelected,
   setaudienceSelected,
   getUserAudience,
+  showCreateAudButton = true,
 }: {
   audienceCollection: any;
   audienceSelected: any;
   setaudienceSelected: any;
   getUserAudience: any;
+  showCreateAudButton: boolean;
 }) => {
   // const {} = useContext(AppContext);
   return (
@@ -26,28 +28,34 @@ export const AudienceSelector = ({
         <Button variant="outline">
           {audienceSelected && audienceSelected.name
             ? audienceSelected?.name
-            : "Choose Audience"}
+            : "Select an Audience"}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="bg-black mt-2 z-50 border-2 border-gray-500 rounded-lg">
         <div className="  p-4">
-          {audienceCollection?.map((data: any, i: number) => {
-            return (
-              <div
-                onClick={() => {
-                  setaudienceSelected(data);
-                }}
-                className=" border-b-2 border-b-gray-500 p-2 cursor-pointer text-white"
-                key={i}
-              >
-                <h1>{data?.name}</h1>
-              </div>
-            );
-          })}
+          {audienceCollection?.length > 0 ? (
+            audienceCollection?.map((data: any, i: number) => {
+              return (
+                <div
+                  onClick={() => {
+                    setaudienceSelected(data);
+                  }}
+                  className=" border-b-2 text-sm border-b-gray-500 p-2 cursor-pointer text-white"
+                  key={i}
+                >
+                  <h1>{data?.name}</h1>
+                </div>
+              );
+            })
+          ) : (
+            <p className="text-xs">No audience to send emails</p>
+          )}
         </div>
-        <div>
-          <AddAudience getUserAudience={getUserAudience} />
-        </div>
+        {showCreateAudButton && (
+          <div>
+            <AddAudience getUserAudience={getUserAudience} />
+          </div>
+        )}
       </PopoverContent>
     </Popover>
   );

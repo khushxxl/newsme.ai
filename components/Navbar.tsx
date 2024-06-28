@@ -3,6 +3,7 @@ import { auth } from "@/firebase";
 import { SignInButton, UserButton, useAuth } from "@clerk/nextjs";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { PenSquare, User, Mail, Users, PanelBottom } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -24,13 +25,15 @@ function Navbar() {
     isActive,
     title,
     Icon,
+    link,
   }: {
     isActive: boolean;
     title: string;
     Icon?: any;
+    link: string;
   }) => {
     return (
-      <Link href={`${title.toLowerCase()}`}>
+      <Link href={link}>
         <div
           className={`flex space-x-3 cursor-pointer items-center text-gray-300  w-fit  rounded-lg`}
         >
@@ -47,16 +50,32 @@ function Navbar() {
   return (
     <div className="flex items-center sticky top-0  justify-between z-50 bg-black w-full p-5 border-b-[1px] border-gray-600">
       <div className="flex ">
-        <Link href={"/"}>
+        <Link className="flex items-center space-x-2" href={"/"}>
+          <Image
+            alt=""
+            height={50}
+            src={require("../assets/images/newsmeAI.png")}
+          />
           <h1 className="font-bold cursor-pointer">newsme.ai</h1>
         </Link>
         <div className="flex items-center ml-6  space-x-4 ">
-          <LinkComponent isActive={true} title={"Email"} Icon={PenSquare} />
-          <LinkComponent isActive={false} title={"Audience"} Icon={Users} />
+          <LinkComponent
+            isActive={true}
+            title={"Email"}
+            Icon={PenSquare}
+            link={"/email"}
+          />
+          <LinkComponent
+            isActive={false}
+            title={"Audience"}
+            Icon={Users}
+            link={"/audience"}
+          />
           <LinkComponent
             isActive={false}
             title={"Manage Invite"}
             Icon={PanelBottom}
+            link={"/dashboard"}
           />
         </div>
       </div>

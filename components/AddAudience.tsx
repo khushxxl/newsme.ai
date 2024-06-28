@@ -49,7 +49,7 @@ export function AddAudience({ getUserAudience }: { getUserAudience: any }) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add Audience</DialogTitle>
+          <DialogTitle>Create your Audience</DialogTitle>
           <DialogDescription>Name your audience</DialogDescription>
         </DialogHeader>
         <div className="">

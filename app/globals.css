@@ -72,6 +72,22 @@
   }
   /* #14151B */
   .reactMarkDown {
-    @apply h-[300px];
+    @apply h-[300px] text-white;
+  }
+
+  .reactMarkDown h1 {
+    @apply h-[300px] text-white;
+  }
+  .reactMarkDown h1 {
+    @apply text-white;
+  }
+  .reactMarkDown h2 {
+    @apply text-white;
+  }
+  .reactMarkDown h3 {
+    @apply text-white;
+  }
+  .reactMarkDown h4 {
+    @apply text-white;
   }
 }
