@@ -73,7 +73,10 @@ export default function DataTable<TData, TValue>({
           ))}
         </TableHeader>
         <TableBody>
-          {table.getRowModel().rows?.length ? (
+          {table &&
+          data &&
+          table?.getRowModel()?.rows?.length > 0 &&
+          table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
@@ -85,9 +88,9 @@ export default function DataTable<TData, TValue>({
                   </TableCell>
                 ))}
 
-                {/* <TableCell key={(row.original as NFTMetaData).id}>
-                  <OptionsDialog data={row.original as NFTMetaData} />
-                </TableCell> */}
+                <TableCell key={(row.original as SubscribedUser).memberName}>
+                  <h1 className="text-blue-500 cursor-pointer">Remove</h1>
+                </TableCell>
               </TableRow>
             ))
           ) : (

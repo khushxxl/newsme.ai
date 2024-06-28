@@ -24,56 +24,9 @@ import { AppContext } from "@/context/AppContext";
 
 import Image from "next/image";
 
-const NFTSelector = () => {
-  // const {} = useContext(AppContext);
-  return (
-    <Popover>
-      <PopoverTrigger asChild>
-        {/* <Button variant="outline">{selectedChain?.chain}</Button> */}
-      </PopoverTrigger>
-      <PopoverContent className="bg-black">
-        <div className="w-[200px] p-4">
-          {/* {options?.map((data: any, i: number) => {
-            return (
-              <div
-                onClick={() => {}}
-                className="mt-4 cursor-pointer text-white"
-                key={i}
-              >
-                <h1>{data?.chain}</h1>
-              </div>
-            );
-          })} */}
-        </div>
-      </PopoverContent>
-    </Popover>
-  );
-};
-
 export const columns: ColumnDef<SubscribedUser>[] = [
   {
-    accessorKey: "img",
-    header: ({ column }) => {
-      return (
-        <div className="flex items-center">
-          <h1 className="">
-            <NFTSelector />
-          </h1>
-        </div>
-      );
-    },
-    cell: ({ renderValue, ...props }) => {
-      const img = renderValue() as string;
-
-      return (
-        <div className="flex items-center">
-          {/* <Image alt="" height={100} width={100} src={img} /> */}
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "name",
+    accessorKey: "memberName",
     header: ({ column }) => {
       return (
         <div className="flex items-center">
@@ -89,11 +42,11 @@ export const columns: ColumnDef<SubscribedUser>[] = [
   },
 
   {
-    accessorKey: "email",
+    accessorKey: "memberEmail",
     header: "Email Address",
   },
-  {
-    accessorKey: "isSubscribed",
-    header: "Subscription Status",
-  },
+  // {
+  //   accessorKey: "isSubscribed",
+  //   header: "Subscription Status",
+  // },
 ];

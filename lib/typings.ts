@@ -1,5 +1,5 @@
 interface SubscribedUser {
-  name: string;
-  email: string;
+  memberName: string;
+  memberEmail: string;
   isSubscribed: boolean;
 }

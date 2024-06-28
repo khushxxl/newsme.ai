@@ -11,33 +11,40 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useUser } from "@clerk/nextjs";
+import { db } from "@/firebase";
+import { useAuth, useUser } from "@clerk/nextjs";
+import { addDoc, collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import { PlusCircleIcon, Sparkles } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export function AddAudience() {
+export function AddAudience({ getUserAudience }: { getUserAudience: any }) {
   const [audienceName, setaudienceName] = useState("");
+
+  // const {id} = useUser()
+  const { userId, isSignedIn } = useAuth();
+
   const { user } = useUser();
+
   const createAudience = async () => {
-    await fetch("/api/createAudience", {
-      method: "POST",
-      body: JSON.stringify({
-        audienceName: audienceName,
-        userData: {
-          name: user?.fullName,
-          email: user?.primaryEmailAddress?.emailAddress,
-        },
-      }),
-    }).then(() => {
-      toast.success("Audience Created");
-    });
+    if (userId && isSignedIn) {
+      await addDoc(collection(db, "audiences"), {
+        name: audienceName,
+        audienceLeaderId: userId,
+        audienceLeaderName: user?.fullName,
+        members: [],
+      }).then(async () => {
+        await getUserAudience();
+        toast.success("Audience Created");
+      });
+    }
   };
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="">
-          <PlusCircleIcon className=" cursor-pointer" size={28} />
+        <div className="text-center mb-2 cursor-pointer">
+          {/* <PlusCircleIcon className=" cursor-pointer" size={28} /> */}
+          <h1 className="">Create a new Audience</h1>
         </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
