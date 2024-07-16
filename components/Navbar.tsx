@@ -5,7 +5,7 @@ import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { PenSquare, User, Mail, Users, PanelBottom } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 function Navbar() {
@@ -45,43 +45,51 @@ function Navbar() {
   };
 
   // const user = auth?.currentUser;
-  // console.log(user?.displayName);
+  // console.log(user?.displayName);s
+  const pathname = usePathname();
 
-  return (
-    <div className="flex items-center sticky top-0  justify-between z-50 bg-black w-full p-5 border-b-[1px] border-gray-600">
-      <div className="flex ">
-        <Link className="flex items-center space-x-2" href={"/"}>
-          <Image
-            alt=""
-            height={50}
-            src={require("../assets/images/newsmeAI.png")}
-          />
-          <h1 className="font-bold cursor-pointer">newsme.ai</h1>
-        </Link>
-        <div className="flex items-center ml-6  space-x-4 ">
-          <LinkComponent
-            isActive={true}
-            title={"Email"}
-            Icon={PenSquare}
-            link={"/email"}
-          />
-          <LinkComponent
-            isActive={false}
-            title={"Audience"}
-            Icon={Users}
-            link={"/audience"}
-          />
-          <LinkComponent
-            isActive={false}
-            title={"Manage Invite"}
-            Icon={PanelBottom}
-            link={"/dashboard"}
-          />
+  // Define the routes where you don't want the navbar
+  const noNavbarRoutes = ["/userinvite"];
+
+  // Check if the current path is in the list of noNavbarRoutes
+  const showNavbar = !noNavbarRoutes.includes(pathname);
+  if (showNavbar) {
+    return (
+      <div className="flex items-center sticky top-0  justify-between z-50 bg-black w-full p-5 border-b-[1px] border-gray-600">
+        <div className="flex ">
+          <Link className="flex items-center space-x-2" href={"/"}>
+            {/* <Image
+              alt=""
+              height={50}
+              src={require("../assets/images/newsmeAI.png")}
+            /> */}
+            <h1 className="font-bold cursor-pointer">newsme.ai</h1>
+          </Link>
+          <div className="flex items-center ml-6  space-x-4 ">
+            <LinkComponent
+              isActive={false}
+              title={"Dashboard"}
+              Icon={PanelBottom}
+              link={"/dashboard"}
+            />
+            <LinkComponent
+              isActive={true}
+              title={"Email"}
+              Icon={PenSquare}
+              link={"/email"}
+            />
+            <LinkComponent
+              isActive={false}
+              title={"Audience"}
+              Icon={Users}
+              link={"/audience"}
+            />
+          </div>
         </div>
-      </div>
 
-      {isSignedIn ? <UserButton /> : <SignInButton />}
-      {/* {auth.currentUser && auth.currentUser?.photoURL ? (
+        {isSignedIn ? <UserButton /> : <SignInButton />}
+
+        {/* {auth.currentUser && auth.currentUser?.photoURL ? (
         // user.displayName
         <img
           className="h-[30px] w-[30px] rounded-full cursor-pointer"
@@ -96,8 +104,9 @@ function Navbar() {
           <h1 className="text-sm">{"Sign up"}</h1>
         </div>
       )} */}
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 export default Navbar;

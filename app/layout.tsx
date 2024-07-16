@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 import { SessionProvider } from "next-auth/react";
 import { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 

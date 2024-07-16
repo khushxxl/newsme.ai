@@ -30,7 +30,7 @@ export function AddAudienceMember({
   getUserAudience,
 }: {
   audRefId: string;
-  getUserAudience: Function;
+  getUserAudience: any;
 }) {
   const [memberEmail, setmemberEmail] = useState("");
 

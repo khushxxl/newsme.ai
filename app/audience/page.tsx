@@ -17,19 +17,6 @@ import { useAuth } from "@clerk/nextjs";
 import { AddAudienceMember } from "@/components/AddAudienceMember";
 
 function Audience() {
-  const data: SubscribedUser[] = [
-    {
-      name: "Khushaal",
-      email: "khushaal@.com",
-      isSubscribed: true,
-    },
-    {
-      name: "Ginni",
-      email: "ginni@.com",
-      isSubscribed: false,
-    },
-  ];
-
   const { userId, isSignedIn } = useAuth();
 
   const [audienceCollection, setaudienceCollection] = useState<any>([]);

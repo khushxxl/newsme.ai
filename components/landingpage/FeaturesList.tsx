@@ -2,7 +2,13 @@ import React from "react";
 import Image from "next/image";
 
 function FeaturesList() {
-  const FeatureInfoCard = ({ title, info }) => {
+  const FeatureInfoCard = ({
+    title,
+    info,
+  }: {
+    title: string;
+    info: string;
+  }) => {
     return (
       <div className="border-2 border-gray-700 rounded-xl p-3">
         <h1 className="text-xl ">{title}</h1>
