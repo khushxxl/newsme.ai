@@ -221,9 +221,6 @@ function LandingPage() {
           <p>Sign up</p>
         </div>
       </div>
-      <h1 className="mt-2 text-gray-500 underline">
-        You need to sign up to get notified about the release
-      </h1>
       {/* {!isSignedIn && (
         <h1 className="mt-2 text-gray-500 underline">
           You need to sign up to claim your invite link

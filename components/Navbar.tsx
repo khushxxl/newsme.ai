@@ -66,7 +66,7 @@ function Navbar() {
             <h1 className="font-bold cursor-pointer">newsme.ai</h1>
           </Link>
           <div className="flex items-center ml-6  space-x-4 ">
-            <LinkComponent
+            {/* <LinkComponent
               isActive={false}
               title={"Dashboard"}
               Icon={PanelBottom}
@@ -83,11 +83,11 @@ function Navbar() {
               title={"Audience"}
               Icon={Users}
               link={"/audience"}
-            />
+            /> */}
           </div>
         </div>
 
-        {isSignedIn ? <UserButton /> : <SignInButton />}
+        {/* {isSignedIn ? <UserButton /> : <SignInButton />} */}
 
         {/* {auth.currentUser && auth.currentUser?.photoURL ? (
         // user.displayName
